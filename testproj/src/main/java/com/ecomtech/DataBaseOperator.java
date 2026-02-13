@@ -32,7 +32,7 @@ public class DataBaseOperator {
         Dataset<Order> orders = spark.read().parquet("s3a://warehouse/input/order").as(Encoders.bean(Order.class));
         Dataset<Store> stores = spark.read().parquet("s3a://warehouse/input/store").as(Encoders.bean(Store.class));
 
-        Dataset<User> users2025 = users.filter(year(col("created_at")).equalTo(2025));//возможно изменить на filter(col("created_at").between("2025-01-01", "2025-12-31"))
+        Dataset<User> users2025 = users.filter(year(col("created_at")).equalTo(2025));
 
         //объединяем и агргируем данные
         Dataset<Row> result = orders 
