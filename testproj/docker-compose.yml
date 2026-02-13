@@ -8,8 +8,8 @@ services:
       - "9000:9000"    
       - "9001:9001"    
     environment:
-      MINIO_ROOT_USER: ${minio_user}
-      MINIO_ROOT_PASSWORD: ${minio_password}
+      MINIO_ROOT_USER: ${minio_user:-default-user}
+      MINIO_ROOT_PASSWORD: ${minio_password:-default-password}
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9001"
@@ -27,7 +27,7 @@ services:
         condition: service_healthy
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc alias set myminio http://minio:9000 ${minio_user} ${minio_password};
+      /usr/bin/mc alias set myminio http://minio:9000 ${minio_user:-default-user} ${minio_password:-default-password};
       /usr/bin/mc mb myminio/warehouse;
       exit 0;
       "
@@ -40,8 +40,8 @@ services:
         - createbuckets
       environment:
         - MINIO_ENDPOINT=http://minio:9000
-        - MINIO_ACCESS_KEY=${minio_user}
-        - MINIO_SECRET_KEY=${minio_password}
+        - MINIO_ACCESS_KEY=${minio_user:-default-user}
+        - MINIO_SECRET_KEY=${minio_password:-default-password}
 
 volumes:
   minio_data:

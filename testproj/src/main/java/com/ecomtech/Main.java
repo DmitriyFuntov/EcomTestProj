@@ -10,10 +10,10 @@ public class Main {
         DataBaseOperator dbOperator = new DataBaseOperator(endpoint, accessKey, secretKey);
 
         //рандомная генерация
-        //dbOperator.generateData(100, 10, 1000);
+        dbOperator.generateData(100, 10, 1000);
 
         //обычная генерация
-        dbOperator.generateData();
+        //dbOperator.generateData();
         dbOperator.sendRequest();
     }
 }
